@@ -4,7 +4,7 @@ import Header from '../components/header';
 import Tab from '../components/tab';
 import AddReadingButton from '../components/AddReadingButton';
 import ReadingList from '../components/list'; 
-import EditReadingModal from '../components/editmodal'; 
+import EditReadingModal from '../components/editModal'; 
 import ReleasesList from '../components/ReleasesList'; 
 import { Reading } from '../types/reading'; 
 import { init, fetchReadings, incrementChaptersRead } from '../Database'; 
@@ -96,8 +96,6 @@ const MainScreen = () => {
         visible={isEditModalVisible}
         onClose={() => setEditModalVisible(false)}
         reading={currentReading}
-        onUpdate={handleUpdate}
-        onDelete={handleDelete}
         onLoadReadings={loadReadings} 
       />
     </View>
