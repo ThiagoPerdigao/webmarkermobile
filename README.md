@@ -25,7 +25,7 @@ Caso queira testar ou utilizar a aplicação, o APK se encontra na pasta `apk`. 
 
 ## Lista de Leituras
 
-![Tela 1 - Lista de leituras](images/main.jpeg "Minhas Leituras")
+<img src="images/main.jpeg" alt="Tela 1 - Lista de leituras" width="300" />
 
 A tela principal do aplicativo exibe uma lista organizada com todas as obras cadastradas. Ao clicar no botão "Nova Leitura", um modal é aberto para o cadastro de uma nova obra. Cada linha da lista representa uma obra individual e inclui o título, que, ao ser clicado, redireciona o usuário para o link cadastrado. 
 
@@ -33,19 +33,19 @@ Além disso, o status da leitura é exibido, indicando se a obra está marcada c
 
 ## Nova Leitura
 
-![Tela 2 - Nova Leitura](images/add.jpeg "Adicionar Nova Leitura")
+<img src="images/add.jpeg" alt="Tela 2 - Nova Leitura" width="300" />
 
 Ao clicar no botão "Nova Leitura", um modal é apresentado, permitindo que você insira os dados da nova obra. Todos os campos devem ser preenchidos; caso contrário, o envio será impedido. Após preencher as informações necessárias, clique em "Adicionar Nova Leitura" para cadastrar a nova obra na sua lista. Para fechar o modal, basta clicar fora dele, retornando facilmente à tela anterior.
 
 ## Editar
 
-![Tela 3 - Editar Leitura](images/edit.jpeg "Editar Leitura")
+<img src="images/edit.jpeg" alt="Tela 3 - Editar Leitura" width="300" />
 
-Na tela de edição, você pode modificar os detalhes da obra selecionada. O modal apresenta os mesmos campos que a tela de "Nova Leitura", permitindo que você altere as informações conforme necessário. Além disso, há dois botões disponíveis: "Alterar", que salva as modificações feitas, e "Excluir", que remove a obra da sua lista. É uma maneira prática de manter suas leituras sempre atualizadas. Para fechar o modal, basta clicar fora dele, retornando facilmente à tela anterior.
+Na tela de edição, você pode modificar os detalhes da obra selecionada. O modal apresenta os mesmos campos que a tela de "Nova Leitura", permitindo que você altere as informações conforme necessário. Além disso, há dois botões disponíveis: "Alterar", que salva as modificações feitas, e "Excluir", que remove a obra da sua lista. É uma maneira prática de manter suas leituras sempre atualizadas.
 
 ## Releases
 
-![Tela 4 - Lançamentos](images/releases.jpeg "Lançamentos do Dia")
+<img src="images/releases.jpeg" alt="Tela 4 - Lançamentos" width="300" />
 
 A aba de Releases apresenta todas as obras organizadas por dia de lançamento, começando pelo dia da semana atual. Essa funcionalidade é especialmente útil para ficar por dentro das novidades. Vale ressaltar que obras com o status "Completa" não são exibidas nesta aba, garantindo que você veja apenas os lançamentos que ainda está acompanhando.
 
