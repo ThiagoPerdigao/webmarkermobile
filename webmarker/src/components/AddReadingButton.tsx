@@ -3,7 +3,6 @@ import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'reac
 import RNPickerSelect from 'react-native-picker-select';
 import { insertReading } from '../Database'; 
 
-
 interface AddReadingButtonProps {
   onAdd: () => void;
 }
@@ -12,35 +11,37 @@ const AddReadingButton: React.FC<AddReadingButtonProps> = ({ onAdd }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState('');
   const [chaptersRead, setChaptersRead] = useState('');
-  const [status, setStatus] = useState('Em leitura');
+  const [status, setStatus] = useState('');
   const [releaseDay, setReleaseDay] = useState('Segunda-feira');
   const [link, setLink] = useState('');
-  const [error, setError] = useState(''); // Para armazenar mensagens de erro
+  const [error, setError] = useState('');
 
   const handleAddReading = async () => {
     // Limpar mensagens de erro ao iniciar a validação
     setError('');
 
-    // Validação dos campos obrigatórios
-    if (!title || !chaptersRead || !link) {
-      setError('Por favor, preencha todos os campos são obrigatórios.');
-      return; // Retorna sem adicionar a leitura se houver campos não preenchidos
+    // Validação: título obrigatório
+    if (!title) {
+      setError('Por favor, preencha o título.');
+      return; 
     }
 
     try {
       const newReading = {
         title,
-        chaptersRead: parseInt(chaptersRead), // Converter para inteiro
-        status,
+        chaptersRead: chaptersRead ? parseInt(chaptersRead) : 0, // Padrão: 0 capítulos lidos
+        status: status || 'Em leitura', // Padrão: "Em leitura"
         releaseDay,
         link,
       };
+
       await insertReading(newReading); // Chama a função para inserir leitura
       onAdd(); // Atualiza a lista de leituras no componente pai
+
       // Limpar os campos
       setTitle('');
       setChaptersRead('');
-      setStatus('Em leitura');
+      setStatus('');
       setReleaseDay('Segunda-feira');
       setLink('');
       setModalVisible(false); // Fecha o modal
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: '80%',
-    backgroundColor: '#21133d',
+    backgroundColor: '#0C0727',
     borderRadius: 8,
     padding: 20,
     borderWidth: 2,
@@ -220,7 +221,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
-    backgroundColor: 'transparent',
+    backgroundColor: '#8c52ff',
     alignItems: 'center',
     justifyContent: 'center',
   },

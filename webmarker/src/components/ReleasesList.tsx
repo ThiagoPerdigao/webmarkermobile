@@ -54,7 +54,7 @@ const ReleasesList: React.FC<ReleasesListProps> = ({ readings }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    backgroundColor: '#21133d',
+    backgroundColor: '#0C0717',
   },
   dayContainer: {
     marginBottom: 20,

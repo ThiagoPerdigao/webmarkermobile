@@ -21,15 +21,26 @@ const list: React.FC<ReadingListProps> = ({ readings, onEdit, onAddChapter }) =>
       <TouchableOpacity onPress={() => Linking.openURL(item.link)} style={styles.titleContainer}>
         <Text style={styles.title}>{item.title}</Text>
       </TouchableOpacity>
-      <View style={styles.statusContainer}>
-        <Text style={styles.status}>{item.status}</Text>
-        <View style={styles.chaptersContainer}>
-          <Text style={styles.chaptersRead}>Lidos: <Text style={styles.chaptersBold}>{item.chaptersRead}</Text></Text>
-          <TouchableOpacity style={styles.button} onPress={() => onAddChapter(item.id)}>
-            <Text style={styles.buttonText}>+</Text>
-          </TouchableOpacity>
+      <View style={styles.rowContainer}>
+        {/* Coluna para o Status */}
+        <View style={styles.statusColumn}>
+          <Text style={styles.statusText}>{item.status}</Text>
         </View>
-        <TouchableOpacity style={styles.button} onPress={() => onEdit(item.id)}>
+        {/* Coluna para Lidos e Botão + */}
+        <View style={styles.chaptersColumn}>
+          <View style={styles.chaptersContainer}>
+            <View style={styles.chaptersBox}>
+              <Text style={styles.chaptersRead}>
+                Lidos: <Text style={styles.chaptersBold}>{item.chaptersRead}</Text>
+              </Text>
+            </View>
+            <TouchableOpacity style={styles.addButton} onPress={() => onAddChapter(item.id)}>
+              <Text style={styles.buttonText}>+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        {/* Botão Editar */}
+        <TouchableOpacity style={styles.editButton} onPress={() => onEdit(item.id)}>
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
       </View>
@@ -47,49 +58,79 @@ const list: React.FC<ReadingListProps> = ({ readings, onEdit, onAddChapter }) =>
 
 const styles = StyleSheet.create({
   itemContainer: {
-    padding: 15,
+    padding: 20,
     borderBottomWidth: 1,
     borderColor: '#ccc',
   },
   titleContainer: {
-    marginBottom: 5, // Espaçamento entre o título e o restante
+    marginBottom: 10,
   },
   title: {
     fontSize: 18,
     color: '#fff',
   },
-  statusContainer: {
+  rowContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  status: {
+  statusColumn: {
+    minWidth: 100, // Garante largura mínima para evitar quebra de linha
+    maxWidth: 150, // Limita o tamanho para textos mais longos
+    flexShrink: 1, // Permite reduzir se necessário em layouts menores
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginRight: 10,
+  },
+  statusText: {
     fontSize: 16,
     color: '#fff',
+  },
+  chaptersColumn: {
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   chaptersContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  chaptersBox: {
+    borderWidth: 1,
+    borderColor: '#fff',
+    borderTopLeftRadius: 5, // Arredonda apenas à esquerda
+    borderBottomLeftRadius: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginRight: -1, // Remove espaço entre a borda e o botão
+  },
   chaptersRead: {
-    fontSize: 16,
     color: '#fff',
-    marginRight: 5, 
   },
   chaptersBold: {
     fontWeight: 'bold',
   },
-  button: {
-    marginLeft: 10,
+  addButton: {
     borderWidth: 1,
     borderColor: '#fff',
     padding: 5,
+    paddingHorizontal: 15,
+    borderTopRightRadius: 5, // Arredonda apenas à direita
+    borderBottomRightRadius: 5,
+    backgroundColor: '#8c52ff',
+  },
+  editButton: {
+    marginLeft: 15, // Espaçamento para separar do botão anterior
+    borderWidth: 1,
+    borderColor: '#fff',
+    paddingVertical: 5,
+    paddingHorizontal: 15,
     borderRadius: 5,
-    paddingHorizontal: 10,
     backgroundColor: '#8c52ff',
   },
   buttonText: {
     color: '#fff',
+    fontWeight: 'bold',
   },
 });
 

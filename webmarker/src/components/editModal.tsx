@@ -63,13 +63,29 @@ const EditReadingModal: React.FC<EditReadingModalProps> = ({ visible, onClose, r
 
   const handleDelete = async () => {
     if (reading) {
-      try {
-        await deleteReading(reading.id);
-        await onLoadReadings(); // Recarrega as leituras após a exclusão
-        onClose();
-      } catch (error) {
-        console.error("Erro ao excluir a leitura:", error);
-      }
+      Alert.alert(
+        "Confirmar Exclusão",
+        "Tem certeza que deseja excluir esta leitura?",
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Excluir",
+            style: "destructive",
+            onPress: async () => {
+              try {
+                await deleteReading(reading.id);
+                await onLoadReadings(); // Recarrega as leituras após a exclusão
+                onClose();
+              } catch (error) {
+                console.error("Erro ao excluir a leitura:", error);
+              }
+            },
+          },
+        ]
+      );
     }
   };
 
@@ -167,7 +183,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: '80%',
-    backgroundColor: '#21133d',
+    backgroundColor: '#0C0717',
     borderRadius: 8,
     padding: 20,
     borderWidth: 2,
@@ -193,7 +209,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#fff',
     marginBottom: 15,
-    backgroundColor: '#21133d',
+    backgroundColor: '#0C0717',
   },
   picker: {
     height: 50,

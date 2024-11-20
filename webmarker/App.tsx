@@ -5,7 +5,7 @@ import MainScreen from './src/screens/MainScreen';
 const App = () => {
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#21133d" />
+      <StatusBar barStyle="light-content" backgroundColor="#0C0717" />
       <MainScreen />
     </>
   );
