@@ -27,9 +27,11 @@ Caso queira testar ou utilizar a aplicação, o APK se encontra na pasta `apk`. 
 
 <img src="images/main.jpeg" alt="Tela 1 - Lista de leituras" width="300" />
 
-A tela principal do aplicativo exibe uma lista organizada com todas as obras cadastradas. Ao clicar no botão "Nova Leitura", um modal é aberto para o cadastro de uma nova obra. Cada linha da lista representa uma obra individual e inclui o título, que, ao ser clicado, redireciona o usuário para o link cadastrado. 
+A tela principal do aplicativo exibe uma lista organizada com todas as obras cadastradas. Ao clicar no botão "Nova Leitura", um modal é aberto para o cadastro de uma nova obra. Cada linha da lista representa uma obra individual e inclui o título, que, ao ser clicado, redireciona o usuário para o link cadastrado.
 
 Além disso, o status da leitura é exibido, indicando se a obra está marcada como "Em leitura" ou "Completo". Para facilitar o acompanhamento, a tela mostra também a quantidade de capítulos lidos. O botão "+" ao lado da quantidade permite que você aumente o progresso de leitura de forma rápida e intuitiva, sem a necessidade de formulários adicionais. Por fim, o botão "Editar" possibilita a modificação de quaisquer informações relacionadas a cada obra, garantindo que você tenha sempre os dados mais atualizados.
+
+A tela conta também com uma barra de pesquisa, permitindo localizar rapidamente uma obra específica, e um botão de ordenar. Este botão organiza a lista de obras em ordem alfabética ou pela data de lançamento, começando pelo dia atual, proporcionando uma visualização personalizada e prática.
 
 ## Nova Leitura
 

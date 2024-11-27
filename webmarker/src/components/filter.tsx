@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 3,
-    paddingHorizontal: 10,
     color: '#fff',
     marginRight: 10,
     backgroundColor: '#2e2e40',
+    padding: 10,
   },
   sortButton: {
     padding: 10,
