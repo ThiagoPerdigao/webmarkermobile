@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginRight: 10,
     backgroundColor: '#2e2e40',
-    padding: 10,
+    padding: 7,
+    fontSize:18,
   },
   sortButton: {
     padding: 10,
