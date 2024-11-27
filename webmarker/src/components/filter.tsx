@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     backgroundColor: '#2e2e40',
     padding: 7,
-    fontSize:18,
+    fontSize:16,
   },
   sortButton: {
     padding: 10,
