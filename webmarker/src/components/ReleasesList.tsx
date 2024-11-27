@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, Alert } from 'react-native';
 
 interface Release {
   id: number;
   title: string;
   releaseDay: string;
   status: string; // Status da leitura (ex: "Completo", "Em Progresso")
+  link: string; // Adicionado campo link para redirecionamento
 }
 
 interface ReleasesListProps {
@@ -26,15 +27,33 @@ const reorderDays = (days: string[], today: string): string[] => {
   return [...days.slice(todayIndex), ...days.slice(0, todayIndex)];
 };
 
+// Função para validar e abrir um link
+const openLink = (url: string) => {
+  // Verifica se o link possui protocolo válido, caso contrário, adiciona "https://"
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    url = `https://${url}`;
+  }
+
+  // Tenta abrir o link, com tratamento de erros
+  Linking.openURL(url).catch(err => {
+    console.error('Erro ao abrir o link:', err);
+    Alert.alert('Erro', 'Não foi possível abrir o link. Verifique se o endereço é válido.');
+  });
+};
+
 // Componente para exibir uma seção de lançamentos de um dia específico
 const DaySection: React.FC<{ day: string; releases: Release[] }> = ({ day, releases }) => (
   <View style={[styles.dayContainer, day !== getToday() && styles.separator]}>
     <Text style={[styles.dayTitle, day === getToday() && styles.highlightToday]}>{day}</Text>
     {releases.length > 0 ? (
       releases.map(release => (
-        <View key={release.id} style={styles.releaseItem}>
+        <TouchableOpacity
+          key={release.id}
+          style={styles.releaseItem}
+          onPress={() => openLink(release.link)} // Chama a função corrigida para abrir o link
+        >
           <Text style={styles.releaseTitle}>{release.title}</Text>
-        </View>
+        </TouchableOpacity>
       ))
     ) : (
       <Text style={styles.noReleasesText}>Nenhum lançamento</Text>

@@ -177,12 +177,15 @@ const EditReadingModal: React.FC<EditReadingModalProps> = ({ visible, onClose, r
 const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fundo escuro
   },
   modalContent: {
-    width: '80%',
+    width: '90%',
+    maxWidth: 400,
+    minWidth: 250,
+    alignSelf: 'center', // Garante que o modal fique centralizado
     backgroundColor: '#0C0717',
     borderRadius: 8,
     padding: 20,
