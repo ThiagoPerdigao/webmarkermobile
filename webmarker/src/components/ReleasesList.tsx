@@ -1,80 +1,132 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useMemo } from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 interface Release {
   id: number;
   title: string;
   releaseDay: string;
-  status: string; // Adicionando status para filtrar as leituras
+  status: string; // Status da leitura (ex: "Completo", "Em Progresso")
 }
 
 interface ReleasesListProps {
   readings: Release[];
 }
 
+const daysOfWeek = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
+
+// Função para obter o dia da semana atual dinamicamente
+const getToday = (): string => {
+  const todayIndex = new Date().getDay(); // 0 = Domingo, 1 = Segunda, ...
+  return daysOfWeek[todayIndex === 0 ? 6 : todayIndex - 1];
+};
+
+// Função para reorganizar os dias da semana colocando os anteriores ao "hoje" no final
+const reorderDays = (days: string[], today: string): string[] => {
+  const todayIndex = days.indexOf(today);
+  return [...days.slice(todayIndex), ...days.slice(0, todayIndex)];
+};
+
+// Componente para exibir uma seção de lançamentos de um dia específico
+const DaySection: React.FC<{ day: string; releases: Release[] }> = ({ day, releases }) => (
+  <View style={[styles.dayContainer, day !== getToday() && styles.separator]}>
+    <Text style={[styles.dayTitle, day === getToday() && styles.highlightToday]}>{day}</Text>
+    {releases.length > 0 ? (
+      releases.map(release => (
+        <View key={release.id} style={styles.releaseItem}>
+          <Text style={styles.releaseTitle}>{release.title}</Text>
+        </View>
+      ))
+    ) : (
+      <Text style={styles.noReleasesText}>Nenhum lançamento</Text>
+    )}
+  </View>
+);
+
 const ReleasesList: React.FC<ReleasesListProps> = ({ readings }) => {
-  // Criar um objeto para armazenar as leituras por dia da semana
-  const daysOfWeek = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
-  
-  // Filtrando as leituras para excluir aquelas com status "Completo"
-  const filteredReadings = readings.filter(reading => reading.status !== 'Completo');
+  const today = getToday();
 
-  const groupedReleases = daysOfWeek.reduce((acc, day) => {
-    acc[day] = filteredReadings.filter(reading => reading.releaseDay === day);
-    return acc;
-  }, {} as Record<string, Release[]>);
+  // Reorganizar os dias da semana dinamicamente
+  const reorderedDays = reorderDays(daysOfWeek, today);
 
-  // Obter o índice do dia atual
-  const todayIndex = new Date().getDay(); // 0 é Domingo, 1 é Segunda, etc.
-  const today = daysOfWeek[todayIndex === 0 ? 6 : todayIndex - 1]; // Ajustar para que Segunda-feira seja o primeiro
+  // Filtrar e agrupar leituras usando useMemo para otimização
+  const groupedReleases = useMemo(() => {
+    // Filtra leituras excluindo as com status "Completo"
+    const filteredReadings = readings.filter(reading => reading.status !== 'Completo');
+
+    // Agrupa leituras por dia da semana
+    return daysOfWeek.reduce((acc, day) => {
+      acc[day] = filteredReadings.filter(reading => reading.releaseDay === day);
+      return acc;
+    }, {} as Record<string, Release[]>);
+  }, [readings]);
 
   return (
-    <View style={styles.container}>
-      {Object.keys(groupedReleases).map(day => {
-        if (groupedReleases[day].length > 0) {
-          return (
-            <View key={day} style={styles.dayContainer}>
-              {daysOfWeek.indexOf(day) >= daysOfWeek.indexOf(today) && (
-                <>
-                  <Text style={styles.dayTitle}>{day}</Text>
-                  {groupedReleases[day].map(release => (
-                    <Text key={release.id} style={styles.releaseItem}>{release.title}</Text>
-                  ))}
-                </>
-              )}
-            </View>
-          );
-        }
-        return null;
-      })}
-    </View>
+    <ScrollView style={styles.scrollContainer}>
+      <View style={styles.container}>
+        {reorderedDays.map(day => {
+          const releases = groupedReleases[day] || [];
+          return <DaySection key={day} day={day} releases={releases} />;
+        })}
+        {/* Mensagem global para quando não houver lançamentos em nenhum dia */}
+        {Object.values(groupedReleases).flat().length === 0 && (
+          <Text style={styles.emptyMessage}>Nenhum lançamento disponível.</Text>
+        )}
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flex: 1,
+    backgroundColor: '#0C0717',
+  },
   container: {
     padding: 10,
-    backgroundColor: '#0C0717',
   },
   dayContainer: {
     marginBottom: 20,
     marginTop: 20,
+    paddingVertical: 10,
+  },
+  separator: {
+    borderTopWidth: 2,
+    borderTopColor: '#fff',
+    paddingTop: 15,
   },
   dayTitle: {
-    fontSize: 24, 
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
     marginBottom: 5,
-    borderBottomWidth: 2, 
-    borderBottomColor: '#fff', 
-    width: '90%', 
-    alignSelf: 'flex-start', 
-    paddingBottom: 5, 
+    width: '90%',
+    alignSelf: 'flex-start',
+  },
+  highlightToday: {
+    color: '#fff', // Cor destaque para "Hoje" removido
   },
   releaseItem: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginVertical: 3,
+    borderRadius: 3,
+    backgroundColor: '#2E2E40',
+  },
+  releaseTitle: {
     fontSize: 16,
     color: '#fff',
-    paddingVertical: 2,
+  },
+  noReleasesText: {
+    fontSize: 16,
+    color: '#aaa',
+    fontStyle: 'italic',
+    paddingVertical: 5,
+  },
+  emptyMessage: {
+    fontSize: 18,
+    color: '#aaa',
+    textAlign: 'center',
+    marginTop: 20,
   },
 });
 

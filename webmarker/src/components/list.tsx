@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
   chaptersBox: {
     borderWidth: 1,
     borderColor: '#fff',
-    borderTopLeftRadius: 5, // Arredonda apenas à esquerda
-    borderBottomLeftRadius: 5,
+    borderTopLeftRadius: 3, // Arredonda apenas à esquerda
+    borderBottomLeftRadius: 3,
     paddingVertical: 5,
     paddingHorizontal: 10,
     marginRight: -1, // Remove espaço entre a borda e o botão
@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     padding: 5,
     paddingHorizontal: 15,
-    borderTopRightRadius: 5, // Arredonda apenas à direita
-    borderBottomRightRadius: 5,
+    borderTopRightRadius: 3, // Arredonda apenas à direita
+    borderBottomRightRadius: 3,
     backgroundColor: '#8c52ff',
   },
   editButton: {
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     paddingVertical: 5,
     paddingHorizontal: 15,
-    borderRadius: 5,
+    borderRadius: 3,
     backgroundColor: '#8c52ff',
   },
   buttonText: {

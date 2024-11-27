@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 5,
+    borderRadius: 4,
     backgroundColor: 'transparent',
   },
   buttonText: {
